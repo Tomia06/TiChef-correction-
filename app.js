@@ -2,12 +2,13 @@ fetch("data.json")
     .then(response => response.json())
     .then(data => {
         afficher(data);
-
     });
 
-
-
+// role : Afficher la recette 
+// parametre : une recette (tableau) 
+// return : rien 
 function afficher(tableau) {
+   // let recherche = tableau.filter()
     tableau.forEach(recette => {
         let noms = recette.nom
         let imgs = recette.img
@@ -16,6 +17,7 @@ function afficher(tableau) {
         let portionsPerso = recette.portions
         let ingredientRecette =""
         let etapeRecette = ""
+
         recette.ingredients.forEach(ingredient => {
             ingredientRecette += 
             `<li>${ingredient.quantite} ${ingredient.unite} ${ingredient.aliment}</li>`;
@@ -98,12 +100,57 @@ function afficher(tableau) {
         </div>
     </section>
             
-           ` 
-            
-            
-            
+   `
 
+    });
+}
 
+/*
+function prendreValeur(){
+let donnee = document.getElementById("searchBar");
 
+donnee.addEventListener("change", () => {
+    const input = donnee.value.toLowerCase();
+
+    data.forEach(mot => {
+        let chercher = mot.nom.toLowerCase().split(" ");
+
+        chercher.forEach(cher => {
+            if (cher === input) {
+                console.log("Trouvé :", mot.nom);
+            }
+        });
+    });
+});}*/
+
+fetch("articles-data.json")
+    .then(response => response.json())
+    .then(articlesData => {
+         afficher2(articlesData)
+    })
+
+function afficher2(tableau){
+    tableau.forEach(article => {
+        let nom = article.titre
+        let date = article.date
+        let image = article.img
+        let auteur = article.auteur
+        let resume = article.resume
+       document.getElementById("article").innerHTML += `
+            <div class="card flex justify-between large-6" data-aos="fade-up">
+            <div class="large-6">
+            <img src=${image} alt="image de l'article" class="large-12">
+            </div>
+            <div class=large-6>
+                <h2>${nom}</h2>
+                <div class="flex justify-between gap16">
+                    <p>${date}</p>
+                    <p>${auteur}</p>
+                </div>
+                <p>${resume}</p>
+                <a href="">Lire l'article</a>
+            </div>
+        </div>
+       `
     });
 }
